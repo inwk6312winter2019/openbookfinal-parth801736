@@ -1,20 +1,40 @@
 from create-ticket import * 
 
-device = []
+devices = []
 
 try: 
 
    resp = get(api="network-device")
    status = resp.status_code
    response_json = resp.json()
-   device = response_json["response"]
+   devices = response_json["response"]
 
 except:
 
       print("Something went wrong")
       sys.exit()
 
-controller='sandboxapic.cisco.com'
+if status != 200:
+   print (resp.text)
+   sys.exit()
+
+if devices == []:
+   print ("No devices found on current host")
+   sys.exit()
+
+list_of_devices = []
+
+i=0
+for item in devices:
+
+    i += 1
+    list_of_devices.append([i,item["hostname"],item["ipaddress"],item["mac address"]])
+
+print (tabulate(list_of_device,[headers='number','hostname','ip'],tablefmt = "rst"))
+
+
+
+"""controller='sandboxapic.cisco.com'
 #controller='devnetapi.cisco.com/sandbox/apic_em'
 
 
@@ -53,6 +73,6 @@ print (json.dumps(response.json(), indent=4, separators=(',', ': ')))
 
 r_resp=response.json()
 
-print(r_resp["response"][0]["hostIp"])
+print(r_resp["response"][0]["hostIp"])"""
 
 
