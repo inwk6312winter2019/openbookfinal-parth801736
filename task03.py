@@ -32,7 +32,17 @@ for item in devices:
 
 print (tabulate(list_of_device,[headers='number','hostname','ip'],tablefmt = "rst"))
 
+def getnetworkdevicescount(self, **nwargs):
 
+    thread = api.getnetworkdevicescount(async=True)
+    result = thread.get()
+if nwargs.get('async'):
+   return self.getnetworkdevicescount(**nwargs)
+else:
+    (data) self.getnetworkdevicescount(**nwargs)
+    return data
+
+getnetworkdevicescount(self,**nwargs)
 
 """controller='sandboxapic.cisco.com'
 #controller='devnetapi.cisco.com/sandbox/apic_em'
